@@ -1,5 +1,5 @@
 {
-      "name": "smichaelsen/sofortlib-php-payment",
+      "name": "asgoodasnu/sofortlib-php-payment",
       "autoload": {
           "files": [
                    "payment/sofortLibSofortueberweisung.inc.php"
