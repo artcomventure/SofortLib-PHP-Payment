@@ -26,6 +26,10 @@ $SofortLibTransactionData = new SofortLibTransactionData($configkey);
 //$SofortLibTransactionData->addTransaction(array('00907-01222-50F00112-D86E', '00907-01222-50EFFC79-7E33'));
 //$SofortLibTransactionData->addTransaction(array('00907-37660-51D2CD5E-8182'));
 $SofortLibTransactionData->addTransaction('00907-01222-51ADD8C9-86C8');
+// By default without setter Api version 1.0 will be used due to backward compatibility, please
+// set ApiVersion to latest version. Please note that the response might have a different structure and values
+// For more details please see our Api documentation on https://www.sofort.com/integrationCenter-ger-DE/integration/API-SDK/
+$SofortLibTransactionData->setApiVersion('2.0');
 //$SofortLibTransactionData->setTime('2012-11-14T18:00+02:00', '2012-12-13T00:00+02:00');
 //$SofortLibTransactionData->setNumber(5, 1);
 

@@ -57,15 +57,15 @@ class Unit_ArrayToXmlTest extends SofortLibTest {
 		
 		$node = array('@attributes' => 'test');
 		$attributes = array('test');
-		$this->assertEquals($extractAttributesSection->invoke($ArrayToXml, &$node), $attributes);
+		$this->assertEquals($extractAttributesSection->invokeArgs($ArrayToXml, array (&$node)), $attributes);
 		
 		$node = array('@attributes' => array('test'));
 		$attributes = array('test');
-		$this->assertEquals($extractAttributesSection->invoke($ArrayToXml, &$node), $attributes);
+		$this->assertEquals($extractAttributesSection->invokeArgs($ArrayToXml, array (&$node)), $attributes);
 		
 		$node = array('@attributes' => false);
 		$attributes = array();
-		$this->assertEquals($extractAttributesSection->invoke($ArrayToXml, &$node), $attributes);
+		$this->assertEquals($extractAttributesSection->invokeArgs($ArrayToXml, array (&$node)), $attributes);
 	}
 	
 	
@@ -75,11 +75,11 @@ class Unit_ArrayToXmlTest extends SofortLibTest {
 		$SofortText = new SofortText('node', true, false);
 		
 		$node = array('@data' => 'node');
-		$this->assertEquals($extractDataSection->invoke($ArrayToXml, &$node, true), array($SofortText));
+		$this->assertEquals($extractDataSection->invokeArgs($ArrayToXml, array (&$node, true)), array($SofortText));
 		
 		$node = array('@data' => false);
 		$data = array();
-		$this->assertEquals($extractDataSection->invoke($ArrayToXml, &$node, true), $data);
+		$this->assertEquals($extractDataSection->invokeArgs($ArrayToXml, array (&$node, true)), $data);
 	}
 	
 	

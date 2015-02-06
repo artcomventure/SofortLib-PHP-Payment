@@ -1,6 +1,15 @@
 <?php
 /**
- * @mainpage
+ * @file
+ */
+require_once(dirname(__FILE__).'/sofortLibFactory.php');
+
+/**
+ * SofortLibPHP version - Constant
+ */
+define('SOFORTLIB_VERSION', '2.1.2');
+
+/**
  * Base class for SOFORT XML-Api
  * 
  * This class implements basic http authentication and an xml-parser
@@ -15,16 +24,15 @@
  * @license Released under the GNU LESSER GENERAL PUBLIC LICENSE (Version 3)
  * @license http://www.gnu.org/licenses/lgpl.html
  *
- * @version SofortLib 2.1.1
+ * @version SofortLib 2.1.2
  *
  * @link http://www.sofort.com/ official website
  */
-require_once(dirname(__FILE__).'/sofortLibFactory.php');
-
-define('SOFORTLIB_VERSION', '2.1.1');
-
 abstract class SofortLibAbstract {
 	
+	/**
+	 * API-URL
+	 */
 	CONST GATEWAY_URL = "https://api.sofort.com/api/xml";
 	
 	/**
@@ -166,7 +174,7 @@ abstract class SofortLibAbstract {
 	 * @return array
 	 */
 	public function getData() {
-		if (in_array($this->_rootTag, array('multipay', 'paycode'))) {
+		if (in_array($this->_rootTag, array('multipay', 'paycode', 'billcode'))) {
 			$this->_parameters['project_id'] = $this->_projectId;
 		}
 		
@@ -474,9 +482,13 @@ abstract class SofortLibAbstract {
 	public function sendRequest() {
 		$this->_request = $this->getData();
 		$this->_DataHandler->handle($this->_request);
-		$this->log(' Request -> '.$this->_DataHandler->getRequest());
+		$getRequest = $this->_DataHandler->getRequest();
+		if(is_array($getRequest)) $getRequest = implode($getRequest);
+		$this->log(' Request -> ' . $getRequest);
 		$this->_response = $this->_DataHandler->getResponse();
-		$this->log(' Response -> '.$this->_DataHandler->getRawResponse());
+		$getRawResponse = $this->_DataHandler->getRawResponse();
+		if(is_array($getRawResponse)) $getRequest = implode($getRawResponse);
+		$this->log(' Response -> ' . $getRawResponse);
 		$this->_parse();
 		$this->_handleErrors();
 	}
@@ -492,6 +504,19 @@ abstract class SofortLibAbstract {
 	 */
 	public function setAbortUrl($abortUrl) {
 		$this->_parameters['abort_url'] = $abortUrl;
+		
+		return $this;
+	}
+	
+	
+	/**
+	 * Sets the version tag, appended to the root tag as attribute
+	 *
+	 *@param string $apiVersion
+	 *@return SofortLibAbstract $this
+	 */
+	public function setApiVersion($apiVersion) {
+		$this->_apiVersion = $apiVersion;
 		
 		return $this;
 	}
