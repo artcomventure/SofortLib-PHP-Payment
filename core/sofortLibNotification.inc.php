@@ -11,7 +11,7 @@ require_once(dirname(__FILE__).'/lib/xmlToArray.php');
  * @license Released under the GNU LESSER GENERAL PUBLIC LICENSE (Version 3)
  * @license http://www.gnu.org/licenses/lgpl.html
  *
- * @version SofortLib 2.1.1
+ * @version SofortLib 2.1.2
  *
  * @link http://www.sofort.com/ official website
  */

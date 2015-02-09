@@ -196,6 +196,14 @@ class Unit_SofortLibAbstractTest extends SofortLibTest {
 	}
 	
 	
+	public function providerSetApiVersion () {
+		return array(
+			array('2.0'),
+			array('1.1'),
+		);
+	}
+
+
 	public function providerSetCurrency () {
 		return array(
 			array('EUR'),
@@ -466,6 +474,16 @@ class Unit_SofortLibAbstractTest extends SofortLibTest {
 		$SofortLibAbstractMock->setAbortUrl($provided);
 		$received = $SofortLibAbstractMock->getParameters();
 		$this->assertEquals($provided, $received['abort_url']);
+	}
+
+
+	/**
+	 * @dataProvider providerSetApiVersion
+	 */
+	public function testSetApiVersion ($provided){
+		$SofortLibAbstractMock = new SofortLibAbstractMock(self::$configkey);
+		$SofortLibAbstractMock->setApiVersion($provided);
+		$this->assertAttributeEquals($provided, '_apiVersion', $SofortLibAbstractMock);
 	}
 	
 	
